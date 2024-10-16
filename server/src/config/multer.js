@@ -15,5 +15,8 @@ const local_storage = diskStorage({
   },
 });
 
-const uploadLocal = multer({ storage: local_storage });
+const uploadLocal = multer({
+  storage: local_storage,
+  limits: { fileSize: 1024 * 1024 * 5 }, // 5 MB de limite
+});
 export { uploadLocal };

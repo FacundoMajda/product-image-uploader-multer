@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";
-import router from "./src/routes/upload.routes.js";
+import router from "./src/routes/products.routes.js";
 
 const app = express();
 
@@ -30,12 +30,19 @@ app.use("/", (req, res) => {
   res.send("Hola Mundo!");
 });
 
+app.use((err, req, res, next) => {
+  console.error("❌ Error no controlado:", err);
+  res.status(500).json({
+    status: "error",
+    message: "Error interno del servidor",
+  });
+});
+
 app.use((req, res) => {
   console.log("⚠️ Ruta no encontrada");
   res.status(404).send("404 - No encontrado");
 });
 
-app.listen(PORT, async () => {
-  console.log("🔄 Iniciando servidor...");
-  console.log(`✅ Servidor ejecutándose en puerto: ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
 });
